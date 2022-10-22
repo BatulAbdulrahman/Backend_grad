@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+      "target": "es2016",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "module": "commonjs",
+      "baseUrl": "./src",
+      "typeRoots": [
+          "./src/Types",
+          "node_modules/@types"
+      ],
+      "resolveJsonModule": true,
+      "outDir": "./build",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "noImplicitAny": false,
+      "skipDefaultLibCheck": true,
+      "skipLibCheck": true
+  },
+  "include": [
+      "src/**/*",
+      "Database/**/*"
+  ],
+  "exclude": [
+      "node_modules",
+      "**/*.spec.ts"
+  ]
+}

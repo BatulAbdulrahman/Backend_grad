@@ -1,0 +1,10 @@
+.git
+.env
+.idea
+.thumb
+.vscode
+.DS_STORE
+build/*
+public/*
+node_modules
+!build/.gitignore
