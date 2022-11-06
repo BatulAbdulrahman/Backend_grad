@@ -7,7 +7,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('day').nullable()
         table.string('time').nullable()
         table
-            .integer('doctor_id')
+            .uuid('doctor_id')
             .references('doctors.id')
 
         table

@@ -25,10 +25,10 @@ export async function seed(knex: Knex): Promise<void> {
     doctors_data.forEach((doctor: any) => {
         let doctor_id = uuid()
 
-        let wt_clinic = doctor.clinics.split(',')
-        wt_clinic.forEach((wt_clinic: any) => {
-            let name   = wt_clinic.toLowerCase().trim()
-            let result = clinics.filter(clinic => JSON.stringify(clinic.name).includes(name))[0]
+       // let wt_clinic = doctor.clinics.split(',')
+        clinics.forEach((clinic: any) => {
+            let name   = clinic.name.toLowerCase().trim()
+            let result = clinics.filter(cl => cl.name == name)[0]
 
             if (result && result.id) {
                 worktime.push({doctor_id, clinic_id: result.id})
