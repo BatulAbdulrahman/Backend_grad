@@ -10,29 +10,33 @@ export async function seed(knex: Knex): Promise<void> {
 
     // Build seed entries
 
-    const worktime = await knex('clinic').select('id', 'name','location')
+    const clinics = await knex('clinic').select('id', 'name','location','description')
 
     const doctors_data = DOCTORS_DATA
 
-  
+    /**
+     * transfer these values into relations
+     *
+     * */
 
-    let doctors: any    = []
-    let work_time: any = []
+    let doctors: any       = []
+    let worktime: any = []
 
     doctors_data.forEach((doctor: any) => {
         let doctor_id = uuid()
 
-        let wotime = doctor.worktime.split(',')
-        wotime.forEach((wotime: any) => {
-            let name   = wotime.trim()
-            let result = worktime.filter(clinic => clinic.name == name)[0]
+        let wt_clinic = doctor.clinics.split(',')
+        wt_clinic.forEach((wt_clinic: any) => {
+            let name   = wt_clinic.toLowerCase().trim()
+            let result = clinics.filter(clinic => JSON.stringify(clinic.name).includes(name))[0]
 
             if (result && result.id) {
-                work_time.push({doctor_id, clinic_id: result.id})
+                worktime.push({doctor_id, clinic_id: result.id})
             }
         })
 
-  
+       
+
         delete doctor.clinic
 
         doctors.push({
@@ -42,6 +46,6 @@ export async function seed(knex: Knex): Promise<void> {
     })
 
     await knex.batchInsert('doctors', doctors)
-    await knex.batchInsert('work_time', work_time)
+    await knex.batchInsert('work_time', worktime)
 
 }
