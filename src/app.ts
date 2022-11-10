@@ -6,4 +6,4 @@ export const app: Application = express()
 
 app.route('/').get(PublicDoctorController.index)
 app.route('/').get(PublicClinicController.index)
-//app.route('/id').get(PublicDoctorController.show)
+app.route('/id').get(PublicDoctorController.show)

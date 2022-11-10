@@ -3,7 +3,7 @@ import { Model, QueryBuilderType, QueryContext } from "objection";
 
 import { DOMAIN }                                          from "../../config"
 export default class Clinic extends Model {
-static tableName: 'Clinic';
+static tableName= 'Clinic';
 
 //Tabel columns
 id! : string
