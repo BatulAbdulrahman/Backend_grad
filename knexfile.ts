@@ -19,7 +19,8 @@ tableName: 'migrations',
 directory: "Database/Migrations",
 },
 seeds: {
-directory: "Database/Seeders"
+directory: "Database/Seeders",
+timestampFilenamePrefix: true
 }
 }
 export const knex = Knex(config)

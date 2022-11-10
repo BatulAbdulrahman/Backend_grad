@@ -1,6 +1,6 @@
 import express, {Application} from 'express'
+import { PublicDoctorController } from './Modules/Doctor/doctor.controller.public'
+
 export const app: Application = express()
 
-app.use('/', (req, res)=>{
-    res.send({msg:"hello Batul"})
-})
+app.route('/').get(PublicDoctorController.index)

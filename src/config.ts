@@ -1,3 +1,4 @@
+export const DOMAIN       = process.env.DOMAIN
 export const SERVER_PORT = process.env.SERVER_PORT
 export const DB = {
     client: process.env.DB_CLIENT,
