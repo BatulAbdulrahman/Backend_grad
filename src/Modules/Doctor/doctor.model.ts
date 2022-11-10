@@ -1,5 +1,8 @@
+
+import Clinic from "../Clinic/clinic.model";
 import { Model, QueryBuilderType, QueryContext } from "objection";
 
+import { DOMAIN }                                          from "../../config"
 export default class Doctor extends Model {
 static tableName: 'doctors';
 
@@ -26,11 +29,20 @@ is_disabled!: boolean
 
         return super.$beforeUpdate(args, qc)
     }
-
+    /*static relationMappings = {
+        doctors: {
+          relation: Model.BelongsToOneRelation,
+          modelClass: Doctor,//specialization
+          join: {
+            from: 'doctors.id',
+            to: 'specialization.id'
+          }
+        }
+      };*/
     static relationMappings = () => ({
         clinics: {
             relation: Model.ManyToManyRelation,
-            modelClass: Doctor, //Clinic,
+            modelClass: Clinic, //Clinic,
             join: {
                 from: 'doctors.id',
                 through: {
@@ -39,7 +51,7 @@ is_disabled!: boolean
                 },
                 to: 'clinic.id'
             },
-            filter: (qb: QueryBuilderType<Doctor>) => qb.select('clinic.id', 'clinic.name')
+            filter: (qb: QueryBuilderType<any>) => qb.select('clinic.id', 'clinic.name')
         },
     })
 }

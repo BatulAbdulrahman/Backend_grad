@@ -10,5 +10,16 @@ export const PublicDoctorController ={
 res.json(results)
         })
         .catch(err=>next(err))
+    },
+    show:async(req:Request,res:Response,next:NextFunction)=>{
+        await Doctor
+        .query() 
+        .findById(req.params.id)
+        //where('is_disabled', false)
+        .then((results:Doctor|undefined)=>{
+        
+res.json(results)
+        })
+        .catch(err=>next(err))
     }
 }
