@@ -4,8 +4,9 @@ import {v4 as uuid} from 'uuid'
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
-    await knex("doctors").del();
     await knex("work_time").del();
+    await knex("doctors").del();
+    
 
 
     // Build seed entries
