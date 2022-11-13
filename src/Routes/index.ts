@@ -20,8 +20,8 @@ export const applyRoutes = (): Router => {
      * All application routes can go here
      * -------------------------------------------------------
      * */
-    //const prefix = '/api/v1'
-    const prefix = ''
+    const prefix = '/api/v1'
+    //const prefix = ''
 
     /**
      * ------------------------------------------------------------------------------

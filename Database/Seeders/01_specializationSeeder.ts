@@ -1,4 +1,4 @@
-/*import {Knex} from "knex";
+import {Knex} from "knex";
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
@@ -16,8 +16,8 @@ export async function seed(knex: Knex): Promise<void> {
 
     // After seeding insert for postgres integer ids needs to be synced
     await knex.raw('select setval(\'specialization_id_seq\', max(id)) from specialization')
-}*/
-import {Knex}       from "knex";
+}
+/*import {Knex}       from "knex";
 import {Specialization_DATA} from '../../private/specialization'
 import {v4 as uuid} from 'uuid'
 
@@ -36,7 +36,7 @@ export async function seed(knex: Knex): Promise<void> {
     /**
      * transfer these values into relations
      *
-     * */
+     * 
 
      let specializations: any       = []
      let clsp: any = []
@@ -68,3 +68,4 @@ export async function seed(knex: Knex): Promise<void> {
      await knex.batchInsert('clsp', clsp)
  
  }
+*/

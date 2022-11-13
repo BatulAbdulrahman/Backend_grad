@@ -5,7 +5,6 @@ export const PublicDoctorController ={
     index:async(req:Request,res:Response,next:NextFunction)=>{
         await Doctor
         .query() //where('is_disabled', false)
-        .modify('enabled')
         .then((results:Doctor[])=>{
             res.json(results)
         })
@@ -15,10 +14,9 @@ export const PublicDoctorController ={
         await Doctor
         .query() 
         .findById(req.params.id)
-        .modify('enabled')
         .withGraphFetched(`[
             clinics,
-            specialization,
+           
         ]`
         )
         .throwIfNotFound({message: 'Doctor not found!'})
