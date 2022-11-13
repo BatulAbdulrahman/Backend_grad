@@ -2,8 +2,9 @@ import Doctor from "../Doctor/doctor.model";
 import { Model, QueryBuilderType, QueryContext } from "objection";
 
 import { DOMAIN }                                          from "../../config"
+import Specialization from "../Specialization/specialization.model";
 export default class Clinic extends Model {
-static tableName= 'Clinic';
+static tableName= 'clinic';
 
 //Tabel columns
 id! : string
@@ -38,6 +39,19 @@ updated_at!: Date | string
                     },
                     to: 'doctors.id'
                 }
+            },
+            specialization: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Specialization,
+                join: {
+                    from: 'clinics.id',
+                    through: {
+                        from: 'clsp.clinic_id',
+                        to: 'clsp.spec_id'
+                    },
+                    to: 'specialization.id'
+                }
             }
         })
+       
 }

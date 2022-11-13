@@ -1,9 +1,8 @@
+import { PUBLIC_PATH } from './config'
 import express, {Application} from 'express'
-import { PublicClinicController } from './Modules/Clinic/clinic.controller.public'
-import { PublicDoctorController } from './Modules/Doctor/doctor.controller.public'
+import { applyRoutes } from './Routes'
 
 export const app: Application = express()
 
-app.route('/').get(PublicDoctorController.index)
-app.route('/').get(PublicClinicController.index)
-app.route('/id').get(PublicDoctorController.show)
+app.use(express.static(PUBLIC_PATH))
+app.use(applyRoutes())

@@ -34,10 +34,10 @@ updated_at!: Date | string
             relation: Model.ManyToManyRelation,
             modelClass: Clinic, //Clinic,
             join: {
-                from: 'doctors.id',
+                from: 'specialization.id',
                 through: {
-                    from: 'work_time.doctor_id',
-                    to: 'work_time.clinic_id'
+                    from: 'clsp.spec_id',
+                    to: 'clsp.clinic_id'
                 },
                 to: 'clinic.id'
             },

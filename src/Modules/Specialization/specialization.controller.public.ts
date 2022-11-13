@@ -1,23 +1,24 @@
 import { NextFunction ,Request,Response} from "express";
-import Doctor from "./doctor.model";
+import Specialization from "./specialization.model";
 
-export const PublicDoctorController ={
+export const PublicSpecializationController ={
     index:async(req:Request,res:Response,next:NextFunction)=>{
-        await Doctor
+        await Specialization
         .query() //where('is_disabled', false)
-        .then((results:Doctor[])=>{
-        
-res.json(results)
+        .modify('enabled')
+        .then((results:Specialization[])=>{
+            res.json(results)
         })
         .catch(err=>next(err))
     },
     show:async(req:Request,res:Response,next:NextFunction)=>{
-        await Doctor
+        await Specialization
         .query() 
-        .withGraphFetched('clinics')
         .findById(req.params.id)
+        .modify('enabled')
+        .throwIfNotFound({message: 'Specialization not found!'})
         //where('is_disabled', false)
-        .then((results:Doctor | undefined)=>{
+        .then((results:Specialization | undefined)=>{
         
         res.json(results)
 
