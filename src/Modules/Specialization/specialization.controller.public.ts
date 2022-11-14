@@ -5,7 +5,7 @@ export const PublicSpecializationController ={
     index:async(req:Request,res:Response,next:NextFunction)=>{
         await Specialization
         .query() //where('is_disabled', false)
-        .modify('enabled')
+        //.modify('enabled')
         .then((results:Specialization[])=>{
             res.json(results)
         })
@@ -15,7 +15,7 @@ export const PublicSpecializationController ={
         await Specialization
         .query() 
         .findById(req.params.id)
-        .modify('enabled')
+       // .modify('enabled')
         .throwIfNotFound({message: 'Specialization not found!'})
         //where('is_disabled', false)
         .then((results:Specialization | undefined)=>{

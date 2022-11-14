@@ -5,6 +5,11 @@ export const PublicDoctorController ={
     index:async(req:Request,res:Response,next:NextFunction)=>{
         await Doctor
         .query() //where('is_disabled', false)
+        .withGraphFetched(`[
+            clinics,
+           
+        ]`
+        )
         .then((results:Doctor[])=>{
             res.json(results)
         })
