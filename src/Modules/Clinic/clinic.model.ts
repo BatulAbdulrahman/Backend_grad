@@ -32,7 +32,7 @@ updated_at!: Date | string
                 relation: Model.ManyToManyRelation,
                 modelClass: Doctor,
                 join: {
-                    from: 'clinics.id',
+                    from: 'clinic.id',
                     through: {
                         from: 'work_time.clinic_id',
                         to: 'work_time.doctor_id'
@@ -44,7 +44,7 @@ updated_at!: Date | string
                 relation: Model.ManyToManyRelation,
                 modelClass: Specialization,
                 join: {
-                    from: 'clinics.id',
+                    from: 'clinic.id',
                     through: {
                         from: 'clsp.clinic_id',
                         to: 'clsp.spec_id'

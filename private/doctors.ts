@@ -9,7 +9,5 @@ export const DOCTORS_DATA = [
         rating: "5/5",
         role: "doctors",
         img: "Drama.png",
-        spec_id: 1,
-       
     },
 ]

@@ -3,6 +3,7 @@ import Clinic from "../Clinic/clinic.model";
 import { Model, QueryBuilderType, QueryContext } from "objection";
 
 import { DOMAIN }                                          from "../../config"
+import Specialization from "../Specialization/specialization.model";
 export default class Doctor extends Model {
 static tableName = 'doctors';
 
@@ -39,6 +40,7 @@ is_disabled!: boolean
           }
         }
       };*/
+   
     static relationMappings = () => ({
         clinics: {
             relation: Model.ManyToManyRelation,
@@ -53,5 +55,19 @@ is_disabled!: boolean
             },
             filter: (qb: QueryBuilderType<Clinic>) => qb.select('clinic.id', 'clinic.name')
         },
+        Specializations: {
+          relation: Model.ManyToManyRelation,
+          modelClass: Specialization, //Clinic,
+          join: {
+              from: 'doctors.id',
+              through: {
+                  from: 'spec_doc.doctor_id',
+                  to: 'spec_doc.spec_id'
+              },
+              to: 'specialization.id'
+          },
+          filter: (qb: QueryBuilderType<Specialization>) => qb.select('specialization.id', 'specialization.name')
+      },
+        
     })
 }

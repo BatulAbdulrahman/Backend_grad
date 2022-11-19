@@ -3,6 +3,7 @@ import Clinic from "../Clinic/clinic.model";
 import { Model, QueryBuilderType, QueryContext } from "objection";
 
 import { DOMAIN }                                          from "../../config"
+import Doctor from "../Doctor/doctor.model";
 export default class Specialization extends Model {
 static tableName = 'specialization';
 
@@ -19,16 +20,6 @@ updated_at!: Date | string
 
         return super.$beforeUpdate(args, qc)
     }
-    /*static relationMappings = {
-        doctors: {
-          relation: Model.BelongsToOneRelation,
-          modelClass: Doctor,//specialization
-          join: {
-            from: 'doctors.id',
-            to: 'specialization.id'
-          }
-        }
-      };*/
     static relationMappings = () => ({
         clinics: {
             relation: Model.ManyToManyRelation,
@@ -43,5 +34,19 @@ updated_at!: Date | string
             },
             filter: (qb: QueryBuilderType<Clinic>) => qb.select('clinic.id', 'clinic.name')
         },
+        doctors: {
+            relation: Model.ManyToManyRelation,
+            modelClass: Doctor,
+            join: {
+                from: 'specialization.id',
+                through: {
+                    from: 'spec_doc.spec_id',
+                    to: 'spec_doc.doctor_id'
+                },
+                to: 'doctors.id'
+            }
+        },
+      
+       
     })
 }

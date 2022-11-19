@@ -7,7 +7,7 @@ export const PublicDoctorController ={
         .query() //where('is_disabled', false)
         .withGraphFetched(`[
             clinics,
-           
+            
         ]`
         )
         .then((results:Doctor[])=>{
@@ -21,7 +21,7 @@ export const PublicDoctorController ={
         .findById(req.params.id)
         .withGraphFetched(`[
             clinics,
-           
+            
         ]`
         )
         .throwIfNotFound({message: 'Doctor not found!'})
