@@ -2,12 +2,23 @@ import {Knex} from "knex";
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
+    
+    await knex("spec_doc").del();
     await knex("specialization").del();
 
     const specializations = [
-        {name: "عيون"},
-        {name: "أطفال"},
-        {name: "جراحة"},
+        {
+            id: 1,
+            name: "عيون"
+        },
+        {
+            id: 2,
+            name: "أطفال"
+        },
+        {
+            id: 3,
+            name: "جراحة"
+        },
         
     ]
 

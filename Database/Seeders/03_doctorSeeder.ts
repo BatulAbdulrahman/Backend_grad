@@ -1,44 +1,47 @@
-import {Knex}       from "knex";
-import {DOCTORS_DATA} from '../../private/doctors'
-import {v4 as uuid} from 'uuid'
+import { Knex }         from "knex";
+import { DOCTORS_DATA } from '../../private/doctors'
+import { v4 as uuid }   from 'uuid'
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
     await knex("work_time").del();
     await knex("spec_doc").del();
     await knex("doctors").del();
-    
 
 
-    // Build seed entries
-
-    const clinics = await knex('clinic').select('id', 'name','location','description')
-    const specializations = await knex('specialization').select('id', 'name')
-    const doctors_data = DOCTORS_DATA
+    // get related data
+    const clinics = await knex('clinic').select('id')
+    const specs = await knex('specialization').select('id')
 
     /**
      * transfer these values into relations
      *
      * */
 
-    let doctors: any       = []
+    let doctors: any  = []
     let worktime: any = []
-    let specDoc: any = []
+    let specDoc: any  = []
 
-    doctors_data.forEach((doctor: any) => {
+    // Build seed entries
+    DOCTORS_DATA.forEach((doctor: any) => {
         let doctor_id = uuid()
 
-       // let wt_clinic = doctor.clinics.split(',')
-        clinics.forEach((clinic: any) => {
-            let name   = clinic.name.toLowerCase().trim()
-            let result = clinics.filter(cl => cl.name == name)[0]
+        // get doctor clinic
+        let doctorClinic = clinics.filter(cl => cl.id == doctor.clinic)[0]
 
-            if (result && result.id) {
-                worktime.push({doctor_id, clinic_id: result.id})
-            }
-        })
+        if (doctorClinic && doctorClinic.id) {
+            worktime.push({ doctor_id, clinic_id: doctorClinic.id })
+        }
 
-       
+
+        // get doctor specialization
+        let doctorSpec = specs.filter(cl => cl.id == doctor.specialization)[0]
+
+        if (doctorSpec && doctorSpec.id) {
+            specDoc.push({ doctor_id, spec_id: doctorSpec.id })
+        }
+
+
         delete doctor.clinic
         delete doctor.specialization
 
@@ -47,13 +50,13 @@ export async function seed(knex: Knex): Promise<void> {
             id: doctor_id
         })
     })
-  /*  await Clinic.relatedQuery('doctors')
-    .for(
-      Clinic.query()
-        .where('name', 'سناء')
-        .limit(1)
-    )
-    .relate([100, 200, 300, 400]);*/
+    /*  await Clinic.relatedQuery('doctors')
+     .for(
+     Clinic.query()
+     .where('name', 'سناء')
+     .limit(1)
+     )
+     .relate([100, 200, 300, 400]);*/
 
     await knex.batchInsert('doctors', doctors)
     await knex.batchInsert('work_time', worktime)

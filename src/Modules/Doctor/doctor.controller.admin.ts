@@ -30,7 +30,7 @@ export const AdminDoctorController = {
             .findById(id)
             .withGraphFetched(`[
                 clinics,
-              
+                Specializations
             ]`)
             .throwIfNotFound({ message: 'Doctor not found!' })
             .then((result: Doctor) => res.json(result))

@@ -1,6 +1,6 @@
-import {Router}                              from 'express'
-import { AdminClinicRoutes, PublicClinicRoutes } from '../Modules/Clinic/clinic.routes'
-import { AdminDoctorRoutes, PublicDoctorRoutes } from '../Modules/Doctor/doctor.routes'
+import { Router }                                                from 'express'
+import { AdminClinicRoutes, PublicClinicRoutes }                 from '../Modules/Clinic/clinic.routes'
+import { AdminDoctorRoutes, PublicDoctorRoutes }                 from '../Modules/Doctor/doctor.routes'
 import { AdminSpecializationRoutes, PublicSpecializationRoutes } from '../Modules/Specialization/specialization.routes'
 
 export const applyRoutes = (): Router => {
