@@ -2,6 +2,7 @@ import path from 'path'
 export const SERVER_PORT = process.env.SERVER_PORT
 export const DOMAIN       = process.env.DOMAIN
 export const PUBLIC_PATH  = path.resolve(__dirname, '../', 'public')
+export const UPLOADS_PATH = path.resolve(__dirname, '../', 'public', 'uploads')
 export const DB = {
     client: process.env.DB_CLIENT,
     port: process.env.PG_PORT,

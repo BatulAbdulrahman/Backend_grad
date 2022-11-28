@@ -29,8 +29,14 @@ export async function seed(knex: Knex): Promise<void> {
         // get doctor clinic
         let doctorClinic = clinics.filter(cl => cl.id == doctor.clinic)[0]
 
+        
         if (doctorClinic && doctorClinic.id) {
-            worktime.push({ doctor_id, clinic_id: doctorClinic.id })
+            worktime.push({
+                doctor_id,
+                clinic_id: doctorClinic.id,
+                day: 'sun',
+                time: '10:30' // insert properties to the worktime array
+            })
         }
 
 

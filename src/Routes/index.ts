@@ -1,4 +1,5 @@
 import { Router }                                                from 'express'
+import { errorHandler } from '../Middlewares/error.handler'
 import { AdminClinicRoutes, PublicClinicRoutes }                 from '../Modules/Clinic/clinic.routes'
 import { AdminDoctorRoutes, PublicDoctorRoutes }                 from '../Modules/Doctor/doctor.routes'
 import { AdminSpecializationRoutes, PublicSpecializationRoutes } from '../Modules/Specialization/specialization.routes'
@@ -50,7 +51,7 @@ export const applyRoutes = (): Router => {
      * !!!! The Error handler is the last middleware on the router !!!!
      * ------------------------------------------------------------------------------
      * */
-    //router.use(errorHandler)
+    router.use(errorHandler)
 
     return router
 }

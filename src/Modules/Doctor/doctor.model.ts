@@ -1,6 +1,6 @@
 
 import Clinic from "../Clinic/clinic.model";
-import { Model, QueryBuilderType, QueryContext } from "objection";
+import Objection, { Model, QueryBuilderType, QueryContext } from "objection";
 
 import { DOMAIN }                                          from "../../config"
 import Specialization from "../Specialization/specialization.model";
@@ -30,6 +30,15 @@ is_disabled!: boolean
 
         return super.$beforeUpdate(args, qc)
     }
+
+    static jsonSchema = {
+        type: 'object',
+        required: ['name', 'description'],
+        properties: {
+            name: { type: 'string', minLength: 3 },
+            description: { type: 'string', minLength: 10 }
+        }
+    }
     /*static relationMappings = {
         doctors: {
           relation: Model.BelongsToOneRelation,
@@ -40,6 +49,13 @@ is_disabled!: boolean
           }
         }
       };*/
+      // Formats img and thumb fields when existing model value returns from database
+    $parseDatabaseJson(json: Objection.Pojo): Objection.Pojo {
+        json       = super.$parseDatabaseJson(json);
+        json.img   = json.img != null ? `${DOMAIN}/uploads/doctors/${json.img}` : null
+        json.thumb = json.thumb != null ? `${DOMAIN}/uploads/doctors/thumbs/${json.thumb}` : null
+        return json
+    }
    
     static relationMappings = () => ({
         clinics: {

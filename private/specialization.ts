@@ -1,12 +1,15 @@
 
-export const Specialization_DATA = [
+export const clinics_Data = [
     {
-        name: "عيون"
+        id: 1,
+        name: "مشفى غريان",
+        location: "كوبري السقائف",
+        description: "blablablabla"
     },
     {
-        name: "أطفال"
-    },
-    {
-        name: "جراحة"
-    },
+        id: 2,
+        name: " مصحة فرح",
+        location: "تغسات",
+        description: "blablablabla"
+    }
 ]

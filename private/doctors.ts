@@ -7,9 +7,9 @@ export const DOCTORS_DATA = [
         description: "أخصائية أمراض نساء وولادة",
         rating: "5/5",
         role: "doctors",
-        img: "Drama.png",
+        img: "sana.jpg",
         clinic: 1,
-        specialization: 3
+        specialization: 3,
     },
     {
         name: "ليلى الحبشي",
@@ -21,6 +21,6 @@ export const DOCTORS_DATA = [
         role: "doctors",
         img: "Drama.png",
         clinic: 2,
-        specialization: 1
+        specialization: 1,
     }
 ]

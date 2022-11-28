@@ -5,6 +5,10 @@ export const PublicClinicController ={
     index:async(req:Request,res:Response,next:NextFunction)=>{
         await Clinic
         .query() //where('is_disabled', false)
+        .withGraphFetched(`[
+            doctors,
+        ]`
+        )
         .then((results:Clinic[])=>{
             res.json(results)
         })
@@ -13,6 +17,10 @@ export const PublicClinicController ={
     show:async(req:Request,res:Response,next:NextFunction)=>{
         await Clinic
         .query() 
+        .withGraphFetched(`[
+            doctors,
+        ]`
+        )
         .findById(req.params.id)
         .throwIfNotFound({message: 'Clinic not found!'})
         //where('is_disabled', false)

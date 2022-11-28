@@ -44,7 +44,9 @@ export const AdminDoctorController = {
         await Doctor
             .query()
             .insert(data)
-            .then((result) => res.json(result))
+            .then(async(result) =>{
+                await result.$relatedQuery("clinics").relate([1,2,3])
+                res.json(result)})
             .catch(err => next(err))
 
     },
@@ -60,7 +62,7 @@ export const AdminDoctorController = {
 
         await Doctor
             .query()
-            .patchAndFetchById(req.params.id, data)
+            .patchAndFetchById(req.params.id, data) // .patchAndFetchById(req.params.id, {name : })
             .throwIfNotFound({ message: 'Doctor not found!' })
             .then((result: Doctor) => res.json(result))
             .catch(err => next(err))

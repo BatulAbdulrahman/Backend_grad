@@ -1,4 +1,5 @@
 import { Router }                from 'express'
+import multer from 'multer'
 import { AdminDoctorController } from './doctor.controller.admin'
 import { PublicDoctorController } from './doctor.controller.public'
 
@@ -10,14 +11,14 @@ export const PublicDoctorRoutes = (router: Router, prefix: string) => {
 export const AdminDoctorRoutes = (router: Router, prefix: string) => {
 
     // TODO: add insert, update and delete to admin
-
+const upload = multer()
     router
         .route(`${ prefix }/doctors`)
         .get(
             AdminDoctorController.index
         )
         .post(
-           // Multer.none,
+            upload.none(),
            AdminDoctorController.store
         )
 
@@ -26,6 +27,7 @@ export const AdminDoctorRoutes = (router: Router, prefix: string) => {
         .get(
             AdminDoctorController.show
         )
+        // this is for any updates in doctor data to show in controller when i need show it
         .patch(
             AdminDoctorController.update
         )
