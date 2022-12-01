@@ -1,4 +1,5 @@
 import { Router }                from 'express'
+
 import multer from 'multer'
 import { AdminDoctorController } from './doctor.controller.admin'
 import { PublicDoctorController } from './doctor.controller.public'
@@ -25,13 +26,16 @@ const upload = multer()
     router
         .route(`${ prefix }/doctors/:id`)
         .get(
+        //    Can('view doctor'),
             AdminDoctorController.show
         )
         // this is for any updates in doctor data to show in controller when i need show it
         .patch(
+         //   Can('update doctor'),
             AdminDoctorController.update
         )
         .delete(
+          //  Can('delete doctor'),
             AdminDoctorController.destroy
         )
 }
