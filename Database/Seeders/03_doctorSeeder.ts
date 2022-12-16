@@ -34,8 +34,8 @@ export async function seed(knex: Knex): Promise<void> {
             worktime.push({
                 doctor_id,
                 clinic_id: doctorClinic.id,
-                day: 'sun',
-                time: '10:30' // insert properties to the worktime array
+              //  day: 'sun',
+                //time: '10:30' // insert properties to the worktime array
             })
         }
 

@@ -65,11 +65,16 @@ is_disabled!: boolean
                 from: 'doctors.id',
                 through: {
                     from: 'work_time.doctor_id',
-                    to: 'work_time.clinic_id'
+                    to: 'work_time.clinic_id',
+                    extra: [ 'day', 'time' ]
                 },
                 to: 'clinic.id'
             },
-            filter: (qb: QueryBuilderType<Clinic>) => qb.select('clinic.id', 'clinic.name')
+            filter: (qb: QueryBuilderType<Clinic>) => qb.select(
+                'clinic.id',
+                 'clinic.name',
+                 'work_time.day',
+            'work_time.time', )
         },
         Specializations: {
           relation: Model.ManyToManyRelation,
