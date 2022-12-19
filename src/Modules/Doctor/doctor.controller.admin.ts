@@ -79,14 +79,40 @@ qb.orderBy('name',sort)
      */
     update: async (req: Request, res: Response, next: NextFunction) => {
 
-        const data = req.body
-
+        const {spec_info ,clinic_info, ...data} = req.body // anyting have a multi operation we put in transaction
+ const trx = await Doctor.startTransaction()
         await Doctor
-            .query()
+            .query(trx)
             .patchAndFetchById(req.params.id, data) // .patchAndFetchById(req.params.id, {name : })
             .throwIfNotFound({ message: 'Doctor not found!' })
-            .then((result: Doctor) => res.json(result))
-            .catch(err => next(err))
+            .then(async(result: Doctor) => 
+            {
+clinic_info.doctor_id =result.id
+spec_info.doctor_id =result.id
+//remove old relations
+await result.$relatedQuery("clinics",trx).unrelate()
+//add new relations
+await result.$relatedQuery("clinics",trx).relate(clinic_info)
+//remove old relations
+await result.$relatedQuery("Specializations",trx).unrelate()
+//add new relations
+await result.$relatedQuery("Specializations",trx).relate(spec_info)
+//commit transaction
+await trx.commit()
+//get updated doctor
+await Doctor
+.query()
+.findById(result.id)
+.withGraphFetched("[clinics,Specializations]")
+.then((doc: Doctor | undefined)=>res.json(doc))
+                res.json(result)
+            }
+           )
+            .catch(async err => {
+                //rollback transaction
+                await trx.rollback()
+                return next(err)
+            })
     },
 
     /**
