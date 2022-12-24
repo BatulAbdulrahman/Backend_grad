@@ -4,22 +4,16 @@ import { Model, QueryBuilderType, QueryContext } from "objection";
 
 import { DOMAIN }                                          from "../../config"
 import Doctor from "../Doctor/doctor.model";
-export default class Specialization extends Model {
+import { TimestampedModel } from "../Shared/TimestampedModel";
+export default class Specialization extends TimestampedModel {
 static tableName = 'specialization';
 
 //Tabel columns
 id! : string
 name! : string
-created_at!: Date | string
-updated_at!: Date | string
 
 
-    
-    async $beforeUpdate(args: any, qc: QueryContext) {
-        this.updated_at = new Date()
-
-        return super.$beforeUpdate(args, qc)
-    }
+   
     static relationMappings = () => ({
         clinics: {
             relation: Model.ManyToManyRelation,

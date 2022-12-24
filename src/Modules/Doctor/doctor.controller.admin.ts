@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express"
 import { Page, QueryBuilder } from "objection"
+import { UtilDatabase } from "../../Utils/finder"
 import Doctor                               from './doctor.model'
 
 export const AdminDoctorController = {
@@ -11,7 +12,7 @@ export const AdminDoctorController = {
      */
     index: async (req: Request, res: Response, next: NextFunction) => {
 
-        let page = Number(req.query.page)?? 1
+       /* let page = Number(req.query.page)?? 1
         let pagination = Number(req.query.pagination)??10
 let {is_disabled_filter} = req.query
 let sort: 'asc' | 'desc' = req.query.sort as 'asc' | 'desc'
@@ -35,8 +36,13 @@ qb.orderBy('name',sort)
             })
             .then((result: Page<Doctor>) => res.json(result.results)) //results.length
             .catch(err => next(err))
+    },*/
+    let query = Doctor.query()
+    return await UtilDatabase
+    .finder(Doctor, req.query , query)
+    .then((resules)=>res.json(resules))
+    .catch(err => next(err))
     },
-
     /**
      * ---------------------------------------------------------------------
      * View a single model
@@ -60,15 +66,43 @@ qb.orderBy('name',sort)
 
     store: async (req: Request, res: Response, next: NextFunction) => {
 
-        const data = req.body
+        const {spec_info ,clinic_info, ...data} = req.body // anyting have a multi operation we put in transaction
+ const trx = await Doctor.startTransaction()
 
         await Doctor
             .query()
             .insert(data)
-            .then(async(result) =>{
-                await result.$relatedQuery("clinics").relate([1,2,3])
+            .then(async(/*result*/result: Doctor) =>  {
+                clinic_info.doctor_id =result.id
+                spec_info.doctor_id =result.id
+                //remove old relations
+                await result.$relatedQuery("clinics",trx).unrelate()
+                //add new relations
+                await result.$relatedQuery("clinics",trx).relate(clinic_info)
+                //remove old relations
+                await result.$relatedQuery("Specializations",trx).unrelate()
+                //add new relations
+                await result.$relatedQuery("Specializations",trx).relate(spec_info)
+                //commit transaction
+                await trx.commit()
+                //get updated doctor
+                await Doctor
+                .query()
+                .findById(result.id)
+                .withGraphFetched("[clinics,Specializations]")
+                .then((doc: Doctor | undefined)=>res.json(doc))
+                                res.json(result)
+                            }
+                           )
+                            .catch(async err => {
+                                //rollback transaction
+                                await trx.rollback()
+                                return next(err)
+                            })
+                
+           /*     await result.$relatedQuery("clinics").relate([1,2,3])
                 res.json(result)})
-            .catch(err => next(err))
+            .catch(err => next(err))*/
 
     },
 
@@ -103,7 +137,7 @@ await trx.commit()
 await Doctor
 .query()
 .findById(result.id)
-.withGraphFetched("[clinics,Specializations]")
+.withGraphFetched("[clinics,Specializations]")// eggerloading
 .then((doc: Doctor | undefined)=>res.json(doc))
                 res.json(result)
             }
@@ -128,6 +162,7 @@ await Doctor
             .query()
             .deleteById(id)
             .throwIfNotFound({ message: 'Doctor not found!' })
+            .returning('*')
             .then((result) => res.json(result))
             .catch(err => next(err))
     }

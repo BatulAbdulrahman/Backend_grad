@@ -1,4 +1,5 @@
 import { Router }                                                from 'express'
+import { PublicAuthRoutes } from '../Modules/Auth/auth.routs'
 import { errorHandler } from '../Middlewares/error.handler'
 import { AdminClinicRoutes, PublicClinicRoutes }                 from '../Modules/Clinic/clinic.routes'
 import { AdminDoctorRoutes, PublicDoctorRoutes }                 from '../Modules/Doctor/doctor.routes'
@@ -45,6 +46,7 @@ export const applyRoutes = (): Router => {
     PublicDoctorRoutes(router, prefix)
     PublicClinicRoutes(router, prefix)
     PublicSpecializationRoutes(router, prefix)
+    PublicAuthRoutes(router,prefix)
 
     /**
      * ------------------------------------------------------------------------------

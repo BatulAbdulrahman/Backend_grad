@@ -18,7 +18,19 @@ export async function up(knex: Knex): Promise<void> {
         table.timestamp('created_at', {useTz: false}).defaultTo(knex.raw('now()')).notNullable()
         table.timestamp('updated_at', {useTz: false}).defaultTo(knex.raw('now()')).notNullable()
 
-    })
+    })/*.raw(
+        `ALTER Table "users"
+        add constraint "phone_or_email" check (
+            (
+                (phone is not null)::integer +
+                (
+                (email is not null)::integer + 
+                (password is not null)::integer
+                )
+            ) >= 1
+            )
+            `)*/
+    
 }
 
 
