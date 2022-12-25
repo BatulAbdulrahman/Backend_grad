@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express"
+import { UtilDatabase } from "../../Utils/finder"
 import Clinic from "./clinic.model"
 
 export const AdminClinicController = {
@@ -10,11 +11,14 @@ export const AdminClinicController = {
      */
     index: async (req: Request, res: Response, next: NextFunction) => {
 
-        await Clinic
-            .query()
-            .then((results: Clinic[]) => res.json(results))
-            .catch(err => next(err))
-    },
+        let query = Clinic
+        .query()
+        return await UtilDatabase
+        .finder(Clinic, req.query , query)
+        .then((resules)=>res.json(resules))
+        .catch(err => next(err))
+        },
+    
 
     /**
      * ---------------------------------------------------------------------

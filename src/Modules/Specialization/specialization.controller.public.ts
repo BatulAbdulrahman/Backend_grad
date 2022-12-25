@@ -1,16 +1,19 @@
 import { NextFunction ,Request,Response} from "express";
+import { UtilDatabase } from "../../Utils/finder";
 import Specialization from "./specialization.model";
 
 export const PublicSpecializationController ={
     index:async(req:Request,res:Response,next:NextFunction)=>{
-        await Specialization
-        .query() //where('is_disabled', false)
-        //.modify('enabled')
-        .then((results:Specialization[])=>{
-            res.json(results)
-        })
-        .catch(err=>next(err))
-    },
+        let query = Specialization
+        .query()
+        .withGraphFetched(`[
+            doctors,
+        ]`)
+        return await UtilDatabase
+        .finder(Specialization, req.query , query)
+        .then((resules)=>res.json(resules))
+        .catch(err => next(err))
+        },
     show:async(req:Request,res:Response,next:NextFunction)=>{
         await Specialization
         .query() 

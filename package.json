@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
     "dev": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec ts-node \"src/index.ts\" ",
-    "knex:refresh": "knex migrate:rollback --all && knex migrate:latest && knex seed:run"
+    "knex:refresh": "knex migrate:rollback --all && knex migrate:latest && knex seed:run",
+    "try": "ts-node src/Commands/try.ts",
+    "build": "swc Database -d build/Database && swc json_google -d build/json_google --copy-files && swc knexfile.ts -d build && swc src -d build/src --copy-files --ignore **/*.test.ts",
+    "build-dev": "npm run build && node build/src/index.js"
   },
   "repository": {
     "type": "git",
@@ -40,7 +43,6 @@
     "multer": "^1.4.5-lts.1",
     "objection": "^3.0.1",
     "pg": "^8.8.0",
-    "sqlite3": "^5.1.4",
     "uuid": "^9.0.0"
   }
 }

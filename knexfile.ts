@@ -8,6 +8,7 @@ host: DB.host,
 user: DB.user,
 password: DB.password,
 database: DB.database
+
 },
 searchPath: ['public'],
 pool: {
@@ -25,3 +26,4 @@ timestampFilenamePrefix: true
 }
 export const knex = Knex(config)
 export default config
+

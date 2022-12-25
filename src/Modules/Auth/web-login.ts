@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express"
 import { ValidationError }                 from 'objection'
-import { JWT_EXPIRY }                      from '../../config'
 import { User }                            from '../Users/user.model'
-import ms                                  from 'ms'
 
 export const webLogin = async (req: Request, res: Response, next: NextFunction) => {
 

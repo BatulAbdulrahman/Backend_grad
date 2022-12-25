@@ -37,7 +37,8 @@ qb.orderBy('name',sort)
             .then((result: Page<Doctor>) => res.json(result.results)) //results.length
             .catch(err => next(err))
     },*/
-    let query = Doctor.query()
+    let sorts = req.query.sorts as string
+    let query = Doctor.query().orderBy(sorts!)
     return await UtilDatabase
     .finder(Doctor, req.query , query)
     .then((resules)=>res.json(resules))

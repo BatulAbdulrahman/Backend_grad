@@ -10,8 +10,8 @@ export async function seed(knex: Knex): Promise<void> {
 
     // Inserts seed entries
     await knex("users").insert([
-        { email: "admin@gmail.com", password: hash, role:'admin' },
-        { email: "user@gmail.com", password: hash},
-        { email: "doctor@gmail.com", password: hash ,role:'doctor'},
+        { name : "admin" ,email: "admin@gmail.com", password: hash, role:'admin' },
+        { name : "user" ,email: "user@gmail.com", password: hash},
+       {name : "doctor" , email: "doctor@gmail.com", password: hash ,role:'doctor'},
     ]);
 };

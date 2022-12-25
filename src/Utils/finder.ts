@@ -140,14 +140,14 @@ export class UtilDatabase {
                         console.log("columns.includes('name')")
                         console.log(columns.includes('name'))
                         qb.whereRaw('name @@ to_tsquery(?)', [ q ])
-                    } else {
+                    } /*else {
 
                         if (model.tableName == 'genres') {
                             qb.whereRaw(`name->>'${ lang }' ilike ?`, [ `%${ q }%` ])
                         } else {
                             qb.where(model.defaultSort, 'ilike', `%${ q }%`)
                         }
-                    }
+                    }*/
                 }
             })
             .orderBy(sortsArray)

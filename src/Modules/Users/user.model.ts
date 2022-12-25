@@ -61,5 +61,6 @@ async $beforeUpdate(args: any, qc: QueryContext) {
         return false
     }
  }
+ // Generating JWT token with only user id inside
 
 }
