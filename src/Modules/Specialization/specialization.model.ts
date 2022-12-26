@@ -12,6 +12,13 @@ static tableName = 'specialization';
 id! : string
 name! : string
 
+static jsonSchema = {
+    type: 'object',
+    required: [ 'name' ],
+    properties: {
+        name: { type: 'string', minLength: 3 }
+    }
+}
 
    
     static relationMappings = () => ({

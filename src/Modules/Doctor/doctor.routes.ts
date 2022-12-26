@@ -1,4 +1,5 @@
 import { Router }                from 'express'
+import { Multer } from '../../Middlewares/multer'
 
 import multer from 'multer'
 import { AdminDoctorController } from './doctor.controller.admin'
@@ -12,14 +13,14 @@ export const PublicDoctorRoutes = (router: Router, prefix: string) => {
 export const AdminDoctorRoutes = (router: Router, prefix: string) => {
 
     // TODO: add insert, update and delete to admin
-const upload = multer()
+
     router
         .route(`${ prefix }/doctors`)
         .get(
             AdminDoctorController.index
         )
         .post(
-            upload.none(),
+            Multer.simple('doctors'),
            AdminDoctorController.store
         )
 

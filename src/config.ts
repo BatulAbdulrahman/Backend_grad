@@ -1,9 +1,10 @@
 import path from 'path'
 export const SERVER_PORT = process.env.SERVER_PORT
 export const DOMAIN       = process.env.DOMAIN
+export const ROOT_PATH    = path.resolve(__dirname, '../')
 export const PUBLIC_PATH  = path.resolve(__dirname, '../', 'public')
+export const PRIVATE_PATH = path.resolve(__dirname, '../', 'private')
 export const UPLOADS_PATH = path.resolve(__dirname, '../', 'public', 'uploads')
-
 
 export const JWT_SECRET        = String(process.env.JWT_SECRET)
 export const JWT_EXPIRY        = String(process.env.JWT_EXPIRY)

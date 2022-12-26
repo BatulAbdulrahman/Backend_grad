@@ -43,7 +43,9 @@ export const AdminSpecializationController = {
     store: async (req: Request, res: Response, next: NextFunction) => {
 
         const data = req.body
+        const img = req.file
 
+        console.log(img)
         await Specialization
             .query()
             .insert(data)

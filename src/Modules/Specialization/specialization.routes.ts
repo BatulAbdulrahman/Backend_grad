@@ -1,4 +1,5 @@
 import { Router }                from 'express'
+import { Multer } from '../../Middlewares/multer'
 import { AdminSpecializationController } from './specialization.controller.admin'
 import { PublicSpecializationController } from './specialization.controller.public'
 
@@ -17,7 +18,7 @@ export const AdminSpecializationRoutes = (router: Router, prefix: string) => {
             AdminSpecializationController.index
         )
         .post(
-           // Multer.none,
+            Multer.simple('specialization'),
            AdminSpecializationController.store
         )
 

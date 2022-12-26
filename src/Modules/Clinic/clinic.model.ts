@@ -15,7 +15,14 @@ description!:string|null
 
 
     
-   
+static jsonSchema = {
+    type: 'object',
+    required: [ 'name' ],
+    properties: {
+        name: { type: 'string', minLength: 3 }
+    }
+}
+
 
         /*
      * ---------------------------------------------------------------------

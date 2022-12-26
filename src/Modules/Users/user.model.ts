@@ -1,7 +1,8 @@
-import knex from "knex";
+
 import { QueryContext } from "objection";
 import { TimestampedModel } from "../Shared/TimestampedModel";
 import * as bcrypt from 'bcryptjs'
+import { knex } from "../../../knexfile";
 
 export class User extends TimestampedModel{
     static tableName = 'users'

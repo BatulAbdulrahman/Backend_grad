@@ -40,7 +40,6 @@ export const AdminClinicController = {
     store: async (req: Request, res: Response, next: NextFunction) => {
 
         const data = req.body
-
         await Clinic
             .query()
             .insert(data)

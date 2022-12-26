@@ -1,4 +1,5 @@
 import { Router }                from 'express'
+import { Multer } from '../../Middlewares/multer'
 import { AdminClinicController } from './clinic.controller.admin'
 import { PublicClinicController } from './clinic.controller.public'
 
@@ -17,7 +18,7 @@ export const AdminClinicRoutes = (router: Router, prefix: string) => {
             AdminClinicController.index
         )
         .post(
-           // Multer.none,
+            Multer.simple('clinic'),
            AdminClinicController.store
         )
 
