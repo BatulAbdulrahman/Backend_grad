@@ -1,8 +1,11 @@
 
-import { QueryContext } from "objection";
+import { Model, QueryContext } from "objection";
+import * as jsonwebtoken                  from "jsonwebtoken";
 import { TimestampedModel } from "../Shared/TimestampedModel";
 import * as bcrypt from 'bcryptjs'
 import { knex } from "../../../knexfile";
+import Role from "../../Modules/Role/role.model";
+import { DOMAIN, JWT_EXPIRY, JWT_SECRET } from '../../config'
 
 export class User extends TimestampedModel{
     static tableName = 'users'
@@ -12,7 +15,7 @@ name! : string
 phone!:string|null
 email!:string
 password!:string|null
-
+roles!: Role[] | string[] | []
 
 /*
  * ---------------------------------------------------------------------
@@ -25,16 +28,16 @@ async $beforeInsert(qc: QueryContext) {
 
     if ('email' in this) {
         this.email    = this.email.toLowerCase()
-      //  this.password = await this.$setPassword(this.password!)
+      this.password = await this.$setPassword(this.password!)
     }
     return super.$beforeInsert(qc)
 }
 async $beforeUpdate(args: any, qc: QueryContext) {
     if ('email' in this) this.email = this.email.toLowerCase()
 
-   /* if ('password' in this && this.password) {
+    if ('password' in this && this.password) {
         this.password = await this.$setPassword(this.password)
-    }*/
+    }
     return super.$beforeUpdate(args, qc)
 }
  // Password hashing
@@ -64,4 +67,33 @@ async $beforeUpdate(args: any, qc: QueryContext) {
  }
  // Generating JWT token with only user id inside
 
+ $genToken(): string {
+    return jsonwebtoken.sign(
+        { id: this.id,
+        name:this.name
+        },
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRY }
+    )
+}
+  /*
+     * ---------------------------------------------------------------------
+     * Model Relations
+     * ---------------------------------------------------------------------
+     */
+  static relationMappings = () => ({
+    roles: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Role,
+        join: {
+            from: 'users.id',
+            through: {
+                from: 'user_roles.user_id',
+                to: 'user_roles.role_id'
+            },
+            to: 'roles.id'
+        }
+    },
+    
+})
 }

@@ -82,6 +82,18 @@ is_disabled!: boolean
           },
           filter: (qb: QueryBuilderType<Specialization>) => qb.select('specialization.id', 'specialization.name')
       },
+      /*roles: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Role,
+        join: {
+            from: 'doctors.id',
+            through: {
+                from: 'doctor_roles.doctor_id',
+                to: 'docctor_roles.role_id'
+            },
+            to: 'roles.id'
+        }
+    },*/
         
     })
     /*

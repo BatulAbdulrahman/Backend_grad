@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express"
 import { ValidationError }                 from 'objection'
 import { User }                            from '../Users/user.model'
+import { JWT_EXPIRY } from "../../config"
+import ms                                  from 'ms'
 
 export const webLogin = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -24,21 +26,24 @@ export const webLogin = async (req: Request, res: Response, next: NextFunction) 
         .query()
         .where('email', email)
         .first()
+        .withGraphFetched({
+            roles : true
+        })
         .throwIfNotFound({ message: "User not found" })
         .then(async (result) => {
             const valid = await result.$validatePassword(password)
 
-           // const generated = result.$genToken()
-            //const token     = `Bearer ${ generated }`
+            const generated = result.$genToken()
+            const token     = `Bearer ${ generated }`
             if (valid) {
-               /* return res
+                return res
                     .setHeader('Set-Cookie', [
                         `accessToken=${ token }; path=/; HttpOnly; Max-Age=${ ms(JWT_EXPIRY) / 100 }; SameSite=None; Secure`
-                    ])*/
-                    return res.json({
+                    ])
+                    .json({
                         status: 'success',
                         message: 'logged in',
-                        //token: result.$genToken()
+                        token: result.$genToken()
                     })
             } else {
                 throw new ValidationError({
@@ -49,5 +54,6 @@ export const webLogin = async (req: Request, res: Response, next: NextFunction) 
 
         })
         .catch(err => next(err))
+
 
 }

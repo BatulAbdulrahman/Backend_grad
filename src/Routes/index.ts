@@ -4,6 +4,8 @@ import { errorHandler } from '../Middlewares/error.handler'
 import { AdminClinicRoutes, PublicClinicRoutes }                 from '../Modules/Clinic/clinic.routes'
 import { AdminDoctorRoutes, PublicDoctorRoutes }                 from '../Modules/Doctor/doctor.routes'
 import { AdminSpecializationRoutes, PublicSpecializationRoutes } from '../Modules/Specialization/specialization.routes'
+import { Locale } from '../Middlewares/locale'
+import { JWT } from '../Middlewares/Jwt'
 
 export const applyRoutes = (): Router => {
 
@@ -15,8 +17,10 @@ export const applyRoutes = (): Router => {
      * to be registered on the Router
      * -------------------------------------------------------
      * */
-    // TODO: add (authentication) and locale middlewares here
+     // TODO: add (authentication) and locale middlewares here
 
+     router.use(Locale)
+     router.use(JWT)
     /**
      * -------------------------------------------------------
      * All application routes can go here

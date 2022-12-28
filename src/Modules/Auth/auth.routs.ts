@@ -1,5 +1,8 @@
 import { Router }   from 'express'
 import { Multer }   from '../../Middlewares/multer'
+import { logout } from './logout'
+import { me } from './me'
+import { register } from './register'
 import { webLogin } from './web-login'
 
 export const PublicAuthRoutes = (router: Router, prefix: string) => {
@@ -10,13 +13,13 @@ export const PublicAuthRoutes = (router: Router, prefix: string) => {
         webLogin
     )
 
-    /*router.post(
+    router.post(
         `${ prefix }/register`,
         Multer.none,
         register
-    )*/
+    )
 
-    //router.get(`${ prefix }/me`, me)
+    router.get(`${ prefix }/me`, me)
 
-    //router.get(`${ prefix }/logout`, logout)
+    router.get(`${ prefix }/logout`, logout)
 }
