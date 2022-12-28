@@ -19,7 +19,6 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('role_id').unsigned().references('roles.id')
         table.primary(['user_id', 'role_id'])
     })
-    
 
 }
 

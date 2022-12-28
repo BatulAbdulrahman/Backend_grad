@@ -16,7 +16,13 @@ export const AdminDoctorController = {
 
     let sorts = req.query.sorts as string
     
-    let query = Doctor.query().orderBy(sorts!)
+    let query = Doctor.query()
+    .withGraphFetched(`[
+        clinics,
+        Specializations,
+        ]`
+      )
+    //.orderBy(sorts!)
     return await UtilDatabase
     .finder(Doctor, req.query , query)
     .then((resules)=>res.json(resules))
