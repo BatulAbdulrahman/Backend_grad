@@ -17,7 +17,7 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-   // await knex.schema.dropTableIfExists("user_roles")
+    await knex.schema.dropTableIfExists("user_roles")
     return knex.schema.dropTableIfExists(table_name)
 }
 

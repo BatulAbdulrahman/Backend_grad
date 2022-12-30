@@ -3,6 +3,7 @@ import { Multer } from '../../Middlewares/multer'
 
 import multer from 'multer'
 import { AdminDoctorController } from './doctor.controller.admin'
+import { DoctorDoctorController } from './doctor.controller.doctor'
 import { PublicDoctorController } from './doctor.controller.public'
 
 export const PublicDoctorRoutes = (router: Router, prefix: string) => {
@@ -39,4 +40,18 @@ export const AdminDoctorRoutes = (router: Router, prefix: string) => {
           //  Can('delete doctor'),
             AdminDoctorController.destroy
         )
+        
+}
+export const DoctorDoctorRoutes = (router: Router, prefix: string) => {
+
+    // TODO: update  to doctor admin
+
+    router
+        .route(`${ prefix }/doctors/:id`)
+        // this is for any updates in doctor data to show in controller when i need show it
+        .patch(
+         //   Can('update doctor'),
+            DoctorDoctorController.update
+        )
+        
 }

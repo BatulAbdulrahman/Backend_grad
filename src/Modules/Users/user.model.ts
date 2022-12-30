@@ -16,6 +16,7 @@ phone!:string|null
 email!:string
 password!:string|null
 roles!: Role[] | string[] | []
+is_disabled: any;
 
 /*
  * ---------------------------------------------------------------------
