@@ -1,5 +1,5 @@
 import Doctor from "../Doctor/doctor.model";
-import { Model, QueryBuilderType, QueryContext } from "objection";
+import Objection, { Model, QueryBuilderType, QueryContext } from "objection";
 
 import { DOMAIN }                                          from "../../config"
 import Specialization from "../Specialization/specialization.model";
@@ -11,8 +11,10 @@ static tableName= 'clinic';
 id! : string
 name! : string
 location!:string|null
+phone!:string|null
 description!:string|null
-
+img!: string | null
+thumb!: string | null
 
     
 static jsonSchema = {
@@ -23,7 +25,12 @@ static jsonSchema = {
     }
 }
 
-
+$parseDatabaseJson(json: Objection.Pojo): Objection.Pojo {
+    json       = super.$parseDatabaseJson(json);
+    json.img   = json.img != null ? `${DOMAIN}/uploads/clinics/${json.img}` : null
+    json.thumb = json.thumb != null ? `${DOMAIN}/uploads/clinics/thumbs/${json.thumb}` : null
+    return json
+}
         /*
      * ---------------------------------------------------------------------
      * Model Relations

@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('password').nullable()
        table.string('sex').nullable()
         table.text('description').nullable()//CV
-        table.string('rating').nullable()
+        table.float('rating').notNullable().defaultTo(0.0)
         table.string('role').defaultTo('doctor')
         table.string('img').nullable()
         table.string('thumb').nullable()

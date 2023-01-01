@@ -9,6 +9,7 @@ import { JWT } from '../Middlewares/Jwt'
 import { RoleMiddleware } from '../Middlewares/RoleMiddleware'
 import { AdminUserRoutes, UserRoutes } from '../Modules/Users/user.routes'
 import { GetStatics } from './statistics.route'
+import { AdminReviewRoutes } from '../Modules/Reviews/review.routes'
 
 export const applyRoutes = (): Router => {
 
@@ -53,6 +54,7 @@ UserRoutes(router, user_prefix)
     AdminDoctorRoutes(router, admin_prefix)
     AdminSpecializationRoutes(router, admin_prefix)
     AdminClinicRoutes(router, admin_prefix)
+    AdminReviewRoutes(router,admin_prefix)
 
     router.get(`${admin_prefix}/statistics`, GetStatics)
 

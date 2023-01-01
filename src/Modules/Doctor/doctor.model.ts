@@ -1,10 +1,11 @@
 
 import Clinic from "../Clinic/clinic.model";
-import Objection, { Model, QueryBuilderType, QueryContext } from "objection";
+import Objection, { Model, QueryBuilderType, QueryContext, Transaction } from "objection";
 
 import { DOMAIN }                                          from "../../config"
 import Specialization from "../Specialization/specialization.model";
 import { TimestampedModel } from "../Shared/TimestampedModel";
+import { Review } from "../../Modules/Reviews/review.model";
 export default class Doctor extends TimestampedModel {
 static tableName = 'doctors';
 
@@ -16,13 +17,16 @@ email!:string
 password!:string|null
 sex!:string|null
 description!:string|null
-rating!:string|null
+//rating!:string|null
 //roles!: Role[] | string[] | []
 img!: string | null
 thumb!: string | null
 is_disabled!: boolean
 
+rating!: number
 
+ 
+reviews?: Review[] | []
 
     static jsonSchema = {
         type: 'object',
@@ -31,6 +35,17 @@ is_disabled!: boolean
             name: { type: 'string', minLength: 3 },
             description: { type: 'string', minLength: 10 }
         }
+    }
+    async $recalculateAvg(trx: Transaction) {
+        let rating = await this
+            .$relatedQuery("reviews", trx)
+            .sum("rate")
+            .count("id")
+            .then((result: any) => {
+                return result[0].sum / result[0].count
+            })
+        console.log("avg_rating", rating)
+        await this.$query(trx).patch({ rating })
     }
     /*static relationMappings = {
         doctors: {
@@ -82,6 +97,18 @@ is_disabled!: boolean
           },
           filter: (qb: QueryBuilderType<Specialization>) => qb.select('specialization.id', 'specialization.name')
       },
+      reviews: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Review,
+        join: {
+            from: 'doctors.id',
+            through: {
+                from: 'doctor_reviews.doctor_id',
+                to: 'doctor_reviews.review_id'
+            },
+            to: 'reviews.id'
+        }
+    }
       /*roles: {
         relation: Model.ManyToManyRelation,
         modelClass: Role,

@@ -6,6 +6,7 @@ import * as bcrypt from 'bcryptjs'
 import { knex } from "../../../knexfile";
 import Role from "../../Modules/Role/role.model";
 import { DOMAIN, JWT_EXPIRY, JWT_SECRET } from '../../config'
+import { Review } from "../../Modules/Reviews/review.model";
 
 export class User extends TimestampedModel{
     static tableName = 'users'
@@ -16,6 +17,7 @@ phone!:string|null
 email!:string
 password!:string|null
 roles!: Role[] | string[] | []
+reviews?: Review[] | []
 is_disabled: any;
 
 /*
@@ -95,6 +97,13 @@ async $beforeUpdate(args: any, qc: QueryContext) {
             to: 'roles.id'
         }
     },
-    
+    reviews: {
+        relation: Model.HasManyRelation,
+        modelClass: Review,
+        join: {
+            from: 'users.id',
+            to: 'reviews.user_id'
+        }
+    }
 })
 }

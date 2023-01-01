@@ -9,6 +9,11 @@ import { PublicDoctorController } from './doctor.controller.public'
 export const PublicDoctorRoutes = (router: Router, prefix: string) => {
     router.get(`${ prefix }/doctors`, PublicDoctorController.index)
     router.get(`${ prefix }/doctors/:id`, PublicDoctorController.show)
+    router.post(
+        `${ prefix }/doctors/:id/review`,
+        Multer.none,
+        PublicDoctorController.review
+    )
 }
 
 export const AdminDoctorRoutes = (router: Router, prefix: string) => {
