@@ -4,12 +4,7 @@ export const DOMAIN       = process.env.DOMAIN
 
 
 export const CORS_ORIGIN = [
-    "http://127.0.0.1",
-    "http://127.0.0.1:60017",
-    "http://localhost:59795",
-    "http://localhost:63016/",
-    "http://localhost:59795/#",
-    "http://127.0.0.1:60017/D8By3tUcg4k=/ws"
+    "*",
 ]
 export const ROOT_PATH    = path.resolve(__dirname, '../')
 export const PUBLIC_PATH  = path.resolve(__dirname, '../', 'public')

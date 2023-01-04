@@ -121,7 +121,7 @@ try{
             .then(async(result: Doctor) => 
             {
 clinic_info.doctor_id =result.id
-spec_info.doctor_id =result.id
+//spec_info.doctor_id =result.id
 //remove old relations
 await result.$relatedQuery("clinics",trx).unrelate()
 //add new relations
