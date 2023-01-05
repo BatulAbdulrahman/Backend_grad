@@ -8,7 +8,7 @@ module.exports = {
         watch: [
           "./build/src/*"
         ],
-        max_memory_restart: '500mb',
+        max_memory_restart: '500M',
         ignore_watch: [
           "./node_modules",
           "./public",
