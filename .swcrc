@@ -1,0 +1,36 @@
+{
+    "minify": false,
+    "module": {
+        "type": "commonjs",
+        "strict": false,
+        "strictMode": true,
+        "lazy": false,
+        "noInterop": false
+    },
+    "jsc": {
+        "parser": {
+            "syntax": "typescript",
+            "dynamicImport": true,
+            "privateMethod": false,
+            "functionBind": false,
+            "exportDefaultFrom": true,
+            "exportNamespaceFrom": false,
+            "decorators": false,
+            "decoratorsBeforeExport": false,
+            "topLevelAwait": true,
+            "importMeta": false
+        },
+        "keepClassNames": false,
+        "minify": {
+            "compress": {
+                "unused": true
+            },
+            "mangle": false
+        }
+    },
+    "env": {
+        "targets": {
+            "node": 16
+        }
+    }
+}
