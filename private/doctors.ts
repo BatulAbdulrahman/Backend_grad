@@ -22,5 +22,6 @@ export const DOCTORS_DATA = [
         img: "Drama.png",
         clinic: 2,
         specialization: 1,
-    }
+    },
+ 
 ]
