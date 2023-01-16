@@ -1,4 +1,4 @@
-import Specialization from "Modules/Specialization/specialization.model";
+//import Specialization from "Modules/Specialization/specialization.model";
 
 export const clinics_Data = [
     {
