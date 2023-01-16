@@ -5,6 +5,6 @@
 .vscode
 .DS_STORE
 build/*
-public/*
+
 node_modules
 !build/.gitignore

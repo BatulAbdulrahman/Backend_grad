@@ -1,10 +1,11 @@
+import Specialization from "Modules/Specialization/specialization.model";
 
 export const clinics_Data = [
     {
         id: 1,
         name: "مشفى غريان",
         location: "كوبري السقائف",
-        description: "blablablabla"
+        description: "blablablabla",
     },
     {
         id: 2,
