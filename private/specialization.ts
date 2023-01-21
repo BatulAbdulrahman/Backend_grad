@@ -6,11 +6,13 @@ export const clinics_Data = [
         name: "مشفى غريان",
         location: "كوبري السقائف",
         description: "blablablabla",
+        specialization:1
     },
     {
         id: 2,
         name: " مصحة فرح",
         location: "تغسات",
-        description: "blablablabla"
+        description: "blablablabla",
+        specialization:2
     }
 ]

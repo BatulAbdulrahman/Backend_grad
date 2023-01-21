@@ -5,18 +5,18 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("work_time").del();
     await knex("clinic").del();
 
-    const clinics = [
+     const clinics = [
         {
             id: 1,
             name: "مشفى غريان",
             location: "كوبري السقائف",
-            description: "blablablabla"
+            description: "blablablabla",
         },
         {
             id: 2,
             name: " مصحة فرح",
             location: "تغسات",
-            description: "blablablabla"
+            description: "blablablabla",
         }
     ]
 
