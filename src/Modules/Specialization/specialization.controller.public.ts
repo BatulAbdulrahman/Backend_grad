@@ -7,7 +7,7 @@ export const PublicSpecializationController ={
         let query = Specialization
         .query()
         .withGraphFetched(`[
-            doctors.[clinics],
+            doctors.[clinics , Specializations],
         ]`)
         return await UtilDatabase
         .finder(Specialization, req.query , query)
