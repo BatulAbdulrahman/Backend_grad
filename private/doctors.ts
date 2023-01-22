@@ -23,17 +23,6 @@ export const DOCTORS_DATA = [
         clinic: 2,
         specialization: 1,
     },
-    {
-        name: "هيثم الشامس",
-        phone: "+21111111",
-        email: "haitem@gmail.com",
-        sex: "ذكر",
-        description: "أخصائية أمراض نساء وولادة",
-        //rating: "5/5",
-        role: "doctors",
-        img: "Drama.png",
-        clinic: 2,
-        specialization: 2,
-    },
+   
  
 ]

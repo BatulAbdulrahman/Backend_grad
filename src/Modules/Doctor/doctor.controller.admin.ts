@@ -77,14 +77,16 @@ try{
                 //add new relations
                 await result.$relatedQuery("Specializations",trx).relate(spec_info)
                 //commit transaction
-                await trx.commit()
-                //get updated doctor
-                await Doctor
-                .query()
-                .findById(result.id)
-                .withGraphFetched("[clinics,Specializations]")
-                .then((doc: Doctor | undefined)=>res.json(doc))
-                                res.json(result)
+                await trx.commit().then(async()=>{
+ //get updated doctor
+ await Doctor
+ .query()
+ .findById(result.id)
+ .withGraphFetched("[clinics,Specializations]")
+ .then((doc: Doctor | undefined)=>res.json(doc))
+                })
+               
+                            //    res.json(result)
                             }
                            )
                         }catch(err) {
@@ -131,14 +133,15 @@ await result.$relatedQuery("Specializations",trx).unrelate()
 //add new relations
 await result.$relatedQuery("Specializations",trx).relate(spec_info)
 //commit transaction
-await trx.commit()
+await trx.commit().then(async()=>{
+    await Doctor
+    .query()
+    .findById(result.id)
+    .withGraphFetched("[clinics,Specializations]")// eggerloading
+    .then((doc: Doctor | undefined)=>res.json(doc))
+})
 //get updated doctor
-await Doctor
-.query()
-.findById(result.id)
-.withGraphFetched("[clinics,Specializations]")// eggerloading
-.then((doc: Doctor | undefined)=>res.json(doc))
-                res.json(result)
+
             }
            )
             .catch(async err => {
