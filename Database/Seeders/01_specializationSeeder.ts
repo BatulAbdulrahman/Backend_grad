@@ -19,6 +19,18 @@ export async function seed(knex: Knex): Promise<void> {
             id: 3,
             name: "جراحة"
         },
+        {
+            id: 4,
+            name: "أمراض جلدية"
+        },
+        {
+            id: 5,
+            name: "نساء وولادة"
+        },
+        {
+            id: 6,
+            name: "أسنان"
+        },
         
     ]
 

@@ -8,15 +8,24 @@ export async function seed(knex: Knex): Promise<void> {
      const clinics = [
         {
             id: 1,
-            name: "مشفى غريان",
+            name: "مشفى غريان الطبي",
             location: "كوبري السقائف",
-            description: "blablablabla",
+            description: "مشفى ايوائي بمنطقة السقائف في غريان",
+            phone:"0913036612",
         },
         {
             id: 2,
             name: " مصحة فرح",
             location: "تغسات",
-            description: "blablablabla",
+            description: "مصحة ايوائية بمنطقة تغسات في غريان",
+        phone:"0912744870",
+        },
+        {
+            id: 3,
+            name: "مشفى أزير",
+            location: "غريان , بني وزير",
+            description: "مشفى ايوائي بمنطقة بني وزير في غريان",
+            phone:"0920024010"
         }
     ]
 
