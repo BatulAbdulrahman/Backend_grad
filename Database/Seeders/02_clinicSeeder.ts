@@ -18,14 +18,14 @@ export async function seed(knex: Knex): Promise<void> {
             name: " مصحة فرح",
             location: "تغسات",
             description: "مصحة ايوائية بمنطقة تغسات في غريان",
-        phone:"0912744870",
+            phone:"0912744870",
         },
         {
             id: 3,
             name: "مشفى أزير",
             location: "غريان , بني وزير",
             description: "مشفى ايوائي بمنطقة بني وزير في غريان",
-            phone:"0920024010"
+            phone:"0920024010",
         }
     ]
 
